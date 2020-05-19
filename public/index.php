@@ -1,61 +1,36 @@
 <?php
-
-header("Content-Type:application");
-
+header("Content-Type:application/json");
 require "data.php";
 
-
-
-if(!empty($_GET['name']))
-
+if(!empty($_GET['name']) and !empty($_GET['rating']))
 {
-
 	$name=$_GET['name'];
-
-	$rating = get_rating($name);
-
+	$rating=$_GET['rating'];
+    $r = get_rate($name,$rating);
 	
-
-	if(empty($rating))
-
+	if(empty($r))
 	{
-
-		response(NULL);
-
+		response(200,"Product Not Found",NULL);
 	}
-
 	else
-
 	{
-
-		response($rating);
-
+		response(200,"Product Found",$r);
 	}	
-
 }
-
 else
-
 {
-
-	response(NULL);
-
+	response(400,"Invalid Request",NULL);
 }
 
-
-
-function response($data)
-
+function response($status,$status_message,$data)
 {
-
-	header("HTTP/1.1 ");
-
+	header("HTTP/1.1 ".$status);
 	
-
-	echo $data;
-
+	$response['status']=$status;
+	$response['status_message']=$status_message;
+	$response['data is correct']=$data;
+	
+	$json_response = json_encode($response);
+	echo $json_response;
 }
-
-
-
 ?>
