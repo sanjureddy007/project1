@@ -8,7 +8,7 @@ function get_rating($name)
 		"truedetective"=>7,
 		"sherlockholmes"=>9,
 		"strangerthings"=>6,
-		"Narcos"=> 8
+		"narcos"=> 8
 
 	];
 	
